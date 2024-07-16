@@ -1,0 +1,49 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int countzero = 0;
+        int countone = 0;
+        int counttwo = 0;
+
+        for(auto i : nums) {
+            if(i == 0) countzero++;
+            if(i == 1) countone++;
+            if(i == 2) counttwo++;
+        }
+
+        int idx = 0;
+        for(int i = 0; i < countzero; i++) {
+            nums[idx++] = 0;
+        }
+        for(int i = 0; i < countone; i++) {
+            nums[idx++] = 1;
+        }
+        for(int i = 0; i < counttwo; i++) {
+            nums[idx++] = 2;
+        }
+
+        // it will take care of 0, j take care of 1 and k will take care of 2
+        int n = nums.size();
+        int i = 0;
+        int j = 0;
+        int k = n-1;
+
+        // we will check value at j pointer and on that basis we will move i,j and k
+        while(j <= k) {
+
+            //if j has 1 thats what we wanted no problem move j to right
+            if(nums[j] == 1) {
+                j++;
+            } else if(nums[j] == 2) {
+                // if j has 2 , thats the problem bcoz 2 has to be at k index so swap both j and k value , know we are confirmed that k has 2 what it has to be so move k to its left
+                swap(nums[j], nums[k]);
+                k--;
+            } else if(nums[j] == 0) {
+                //if j has 0 , thats the problem bcoz 1 has to be at i index so swap i and j value, know i will have 0 so thats correct for i so move it to right and also i and j have started at same postion so move j also to right 
+                swap(nums[i], nums[j]);
+                i++;
+                j++;
+            }
+        }
+    }
+};
