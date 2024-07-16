@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if (nums.empty()) return 0; // Edge case: empty vector
+        
+        int n = nums.size();
+        int index = 0; // Index to track unique elements
+        
+        for (int i = 1; i < n; ++i) {
+            if (nums[i] != nums[index]) {
+                nums[++index] = nums[i]; // Move unique elements to the front
+            }
+        }
+        
+        return index + 1; // Return the count of unique elements
+    }
+};
