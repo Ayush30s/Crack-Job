@@ -1,0 +1,16 @@
+class Solution{
+    public:
+    long long findMinDiff(vector<long long> a, long long n, long long m){
+        //sort so that you have most adjacent numbers together and start a window of size M and find the min diff between the first and last element of that window
+        sort(a.begin(), a.end());
+        long long ans = INT_MAX;
+        
+        for(int i = 0; i <= n-m; i++) {
+            long long idx =i+m-1;
+            long long dif = a[idx]-a[i];
+            ans=min(ans,dif);
+        }
+        
+        return ans;
+    }   
+};
