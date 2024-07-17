@@ -1,0 +1,16 @@
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        //left pointer only wants non zero value in the left  so when you see a non zero value in the left move left to right and if you see left pointer having 0 and right having nonzero both are on the opposite place so just swap them and move left to right bcoz after the swap left is having a non-zero value
+        int left = 0;
+        int n = nums.size();
+
+        for(int right = 0; right < n; right++) {
+            if(nums[left] != 0) left++;
+            else if(nums[left] == 0 && nums[right] != 0) {
+                swap(nums[left], nums[right]);
+                left++;
+            }
+        }
+    }
+};
