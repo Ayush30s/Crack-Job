@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        vector<int> maxi(n);
+
+        // find the maximum price of the stock for each day in the upcoming days and calculate the max (profit = max price in upcoming days - price of stock currently) and find the max of all these differences
+        maxi[n-1] = prices[n-1];
+        for(int i = n-2; i >= 0; i--) {
+            maxi[i] = max(prices[i],maxi[i+1]);
+        }
+
+        int ans = INT_MIN;
+
+        for(int i = 0; i < n; i++) {
+            ans = max(maxi[i]-prices[i],ans);
+        }
+
+        return ans < 0 ? 0 : ans;
+    }
+};
