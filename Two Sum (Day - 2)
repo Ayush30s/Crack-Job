@@ -1,0 +1,41 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        // Brute Force
+        vector<int> ans;
+        int n = nums.size();
+        for(int i = 0; i < n; i++) {
+            bool f = false;
+            for(int j = i+1; j < n; j++) {
+                if(nums[i] + nums[j] == target) {
+                    ans.push_back(i);
+                    ans.push_back(j);
+                    f = true;
+                    break;
+                }
+            }
+            if(f) {
+                break;
+            }
+        }
+        return ans;
+
+        // Optimial -> check if target - nums[i] is present or not if not store the nums[i]
+        // correspondingto its index i map so that if you get a diff equal to nums you can check 
+        // the map and return the index of that diff and the current nums[i]
+
+        map<int,int> mp;
+
+        for(int i = 0; i < n; i++) {
+            int diff = target - nums[i];
+            auto it = mp.find(diff);
+
+            if(it != mp.end()) {
+                return {it->second, i};
+            }
+            mp.insert({nums[i], i});
+        }
+
+        return {-1,-1};
+    }
+};
