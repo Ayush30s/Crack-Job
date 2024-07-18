@@ -1,0 +1,22 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> ans; 
+
+        //just use the numbers of the array as index as they are in range of [1,n] by subtracing them by 1 to 
+        //make their range as [0, n-1] so that the elements can be used to map themselves by multiplying the 
+        //number pointed by the them(index) by -1, and if you point a number again that is already made -ve it 
+        //means, the index that pointed it is the number that comes twice.
+
+        for(int i = 0; i < n; i++) {
+            if(nums[abs(nums[i]) - 1] < 0) {
+                ans.push_back(abs(nums[i]));
+            } else {
+                nums[abs(nums[i])-1] = -1 * nums[abs(nums[i])-1];
+            }
+        }
+        
+        return ans;
+    }
+};
