@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxArea(vector<int>& h) {
+        int i = 0;
+        int j  = h.size()-1;
+        int ans = INT_MIN;
+
+        //use two pointers and try to find area between the large columns by pointing both the 
+        //pointers at a larger column as they were pointing before so when you get  ith < jth 
+        //move ith to right so that you might get a larger one  similarly for jth
+
+        while(i <= j) {
+
+            int height = min(h[i], h[j]);
+            int width = (j-i);
+            int area = height * width;
+            ans = max(ans, area);
+
+            if(h[i] <= h[j]) {
+                i++;
+            } else {
+                j--;
+            }
+        }
+
+        return ans;
+    }
+};
