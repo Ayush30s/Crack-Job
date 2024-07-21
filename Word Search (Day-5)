@@ -1,0 +1,46 @@
+class Solution {
+public:
+    int dx[4] = {-1, 1, 0, 0};
+    int dy[4] = {0, 0, 1, -1};
+    
+    bool solve(vector<vector<char>>& board, int i, int j, int r, int c, string word, int idx, vector<vector<bool>>& visited) {
+        if (idx == word.size()) {
+            return true;
+        }
+        
+        for (int x = 0; x < 4; x++) {
+            int nx = dx[x] + i;
+            int ny = dy[x] + j;
+
+            if (nx >= 0 && ny >= 0 && nx < r && ny < c && !visited[nx][ny] && board[nx][ny] == word[idx]) {
+                visited[nx][ny] = true;
+                if (solve(board, nx, ny, r, c, word, idx + 1, visited)) {
+                    return true;
+                }
+                visited[nx][ny] = false; // Backtrack
+            }
+        }
+        
+        return false;
+    }
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        int r = board.size();
+        int c = board[0].size();
+        vector<vector<bool>> visited(r, vector<bool>(c, false));
+        
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (board[i][j] == word[0]) {
+                    visited[i][j] = true;
+                    if (solve(board, i, j, r, c, word, 1, visited)) {
+                        return true;
+                    }
+                    visited[i][j] = false; // Backtrack
+                }
+            }
+        }
+        
+        return false;
+    }
+};
