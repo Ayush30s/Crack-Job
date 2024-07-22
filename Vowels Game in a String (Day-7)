@@ -1,0 +1,20 @@
+class Solution {
+public:
+    bool doesAliceWin(string s) {
+        int total = 0;
+        for(auto i : s) {
+            if(i == 'a' || i == 'e' || i == 'i' || i == 'o' || i == 'u') {
+                total++;
+            }
+        }
+        //if total is even it means bob will pcik the whole string and
+        //remove it so alice would have nothing to remove therfore he will lost
+        if(total == 0) {
+            return false;
+        }
+
+        //if total is odd then alice will pick the whole string and
+        //remove it so nothing is left for bob 
+        return true;
+    }
+};
