@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int maxOperations(string s) {
+        int count = 1;
+        map<int,int> mp;
+        int n = s.size();
+        int group = 1;
+        
+        for(int i = 0; i < n-1; ) {
+            if(s[i] == '1') {
+                //count consecutive ones
+                while(s[i] == '1' && s[i+1] == '1') {
+                    count++;
+                    i++;
+                }
+                if(s[i+1] == '0') {
+                  //make groups of count of consecutive ones
+                    mp[group] = count;
+                    group++;
+                    count = 1;
+                }
+                i += 2;
+            } else {
+                i++;
+            }
+        }
+
+        //count the number of moves required to merge the current group to 
+        //its just right group keep the moves summing up and return in the end
+        int ele = 0;
+        int ans = 0;
+        for(auto i : mp) {
+            ele += i.second;
+            ans += ele;
+        }
+        
+        return ans;
+    }
+};
