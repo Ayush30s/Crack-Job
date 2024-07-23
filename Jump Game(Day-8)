@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool solve(vector<int>& nums, int idx, vector<int>& memo) {
+        int size = nums.size();
+        
+        // If we've reached or passed the last index, return true
+        if (idx >= size - 1) {
+            return true;
+        }
+        
+        // If this index has been computed before, return the stored result
+        if (memo[idx] != -1) {
+            return memo[idx];
+        }
+        
+        int maxJump = nums[idx];
+        
+        // Try every jump length from 1 to maxJump
+        for (int i = 1; i <= maxJump; i++) {
+            if (solve(nums, idx + i, memo)) {
+                memo[idx] = 1; // Store the result
+                return true;
+            }
+        }
+        
+        // If no jump leads to the end, mark this index as not reachable
+        memo[idx] = 0;
+        return false;
+    }
+    
+    bool canJump(vector<int>& nums) {
+        int n = nums.size();
+        vector<int> memo(n, -1); // -1 means not computed yet
+        return solve(nums, 0, memo);
+    }
+};
