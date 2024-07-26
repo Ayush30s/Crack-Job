@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int dx[8] = {0, 0, 1, 1, 1, -1, -1, -1};
+    int dy[8] = {1, -1, 1, -1, 0, 0, 1, -1};
+
+    void gameOfLife(vector<vector<int>>& board) {
+        int r = board.size();
+        int c = board[0].size();
+
+        for(int i = 0; i < r; i++) {
+            for(int j = 0; j < c; j++) {
+                int count = 0;
+                for(int k = 0; k < 8; k++) {
+                    int nx = dx[k] + i;
+                    int ny = dy[k] + j;
+
+                    if(nx >= 0 && nx < r && ny >= 0 && ny < c) {
+                        if(board[nx][ny] == 1 || board[nx][ny] == -1) count++;
+                    }
+                }
+
+                if(board[i][j] == 1 && (count < 2 || count > 3)) {
+                    board[i][j] = -1; // Will die
+                }
+
+                if(board[i][j] == 0 && count == 3) {
+                    board[i][j] = 2; // Will come to life
+                }
+            }
+        }
+
+        for(int i = 0; i < r; i++) {
+            for(int j = 0; j < c; j++) {
+                if(board[i][j] == -1) {
+                    board[i][j] = 0; // Died cell
+                } else if(board[i][j] == 2) {
+                    board[i][j] = 1; // New cell
+                }
+            }
+        }
+    }
+};
